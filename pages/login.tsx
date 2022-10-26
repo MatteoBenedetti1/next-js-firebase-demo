@@ -9,7 +9,7 @@ interface LoginType {
 }
 const LoginPage = () => {
   const methods = useForm<LoginType>({ mode: "onBlur" });
-  const { logInWithEmail, logInWithGoogle } = useAuth();
+  const { logInWithEmail, logInWithGoogle, logInWithFacebook } = useAuth();
   const router = useRouter();
   const {
     register,
@@ -28,6 +28,14 @@ const LoginPage = () => {
   const googleLogin = async () => {
     try {
       await logInWithGoogle();
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+  const facebookLogin = async () => {
+    try {
+      await logInWithFacebook();
       router.push("/dashboard");
     } catch (error: any) {
       console.log(error.message);
@@ -93,6 +101,14 @@ const LoginPage = () => {
         onClick={googleLogin}
       >
         <p className="capitalize text-white font-normal">Login with Google</p>
+      </button>
+      <br />
+      <button
+        type="button"
+        className={`h-12 text-center w-2/3 bg-blue-900 border-2 rounded-md hover:shadow-lg hover:bg-blue-800 text-lg transition`}
+        onClick={facebookLogin}
+      >
+        <p className="capitalize text-white font-normal">Login with Facebook</p>
       </button>
     </div>
   );

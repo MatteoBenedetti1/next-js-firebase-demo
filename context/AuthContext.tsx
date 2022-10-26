@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -56,10 +57,15 @@ export const AuthContextProvider = ({
   };
 
   // Inside AuthProvider
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
 
   const logInWithGoogle = () => {
-    return signInWithPopup(auth, provider);
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  const logInWithFacebook = () => {
+    return signInWithPopup(auth, facebookProvider);
   };
 
   // const logInWithGoogle = () => {
@@ -102,6 +108,7 @@ export const AuthContextProvider = ({
         signUp,
         logInWithEmail,
         logInWithGoogle,
+        logInWithFacebook,
         logOut,
         resetPassword,
       }}
